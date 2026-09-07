@@ -54,7 +54,6 @@ float leerVoltajeBateria() {
 
   // Multiplicador típico de calibración para la resistencia interna de Heltec: 4.9 
   // Depende de la atenuación del ADC, pero este factor convierte el valor de forma precisa.
-  float voltajeIn = (valorADC * 4.9) / 1000.0; 
   float voltajeIn = (valorADC * 4.9);
   
   return voltajeIn;
