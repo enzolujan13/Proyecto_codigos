@@ -44,7 +44,6 @@ float leerVoltajeBateria() {
   digitalWrite(ADC_Ctrl, LOW); 
   delay(10); // Breve espera para estabilizar el voltaje
 
-  // 2. Leer el ADC (Por defecto el ESP32-S3 usa resolución de 12 bits: 0-4095)
   // 2. Leer el ADC 
   int valorADC = analogRead(VBAT_Read);
 
@@ -52,7 +51,7 @@ float leerVoltajeBateria() {
   digitalWrite(ADC_Ctrl, HIGH); 
 
   // 4. Calcular el voltaje real 
-  // Multiplicador típico de calibración para la resistencia interna de Heltec: ~4.9 (o 5.0)
+
   // Multiplicador típico de calibración para la resistencia interna de Heltec: 4.9 
   // Depende de la atenuación del ADC, pero este factor convierte el valor de forma precisa.
   float voltajeIn = (valorADC * 4.9) / 1000.0; 
@@ -65,8 +64,7 @@ int calcularPorcentaje(float mVolts) {
   // Mapeo aproximado de una celda de Litio (4.2V cargada, 3.2V vacía)
   if (mVolts >= 4.20) return 100;
   if (mVolts <= 3.20) return 0;
-  
-  // Convierte el rango linealmente de 3.2V-4.2V a un valor de 0 a 100
+
 
   int pct = (mVolts - 3.20) * 100 / (4.20 - 3.20);
   return pct;
